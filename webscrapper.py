@@ -2,7 +2,9 @@
 # Faster run-time and can be plugged into multiple agents, as needed
 
 import requests
-import BeautifulSoup
+from bs4 import BeautifulSoup
+import re
+from urllib.parse import urljoin
 
 def scrap():
     urls = [
@@ -19,7 +21,7 @@ def scrap():
 
         if response.status_code == 200:
             print('URL: ', url)
-            
+
             soup = BeautifulSoup(response.text, 'html.parser')
             # Collect all <article> tags first
             articles = soup.find_all('article')
@@ -32,7 +34,7 @@ def scrap():
             elements_to_parse = articles + article_divs
 
             for elem in elements_to_parse:
-                info = extract_article_info(elem, base_url)
+                info = extract_article_info(elem, url)
 
                 tag_type = elem.name.upper()
                 print(f"[{tag_type} TAG]")
