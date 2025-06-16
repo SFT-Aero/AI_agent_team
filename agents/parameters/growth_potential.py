@@ -1,0 +1,1 @@
+# Agent to judge future growth potential for scale or impact

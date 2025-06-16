@@ -10,8 +10,8 @@ def scrap():
     urls = [
         'https://npr.org/', 
         #'https://bbc.com/', 
-        #'https://www.cnn.com/world/asia', 
-        #'https://weforum.org/'
+        #'https://www.cnn.com/world/asia', (iffy)
+        #'https://weforum.org/' (does not work)
     ] # Systematically determined from most frequently used Emerging Disruptor - Societal websites
 
     headers = {'User-Agent': 'Mozilla/5.0'}
@@ -36,7 +36,7 @@ def scrap():
             # Combine all elements to parse
             elements_to_parse = articles + article_divs
             
-            with open('output.html', 'w', encoding='utf-8') as f:
+            with open('ws_output.html', 'w', encoding='utf-8') as f:
                 for elem in elements_to_parse:
                     info = extract_article_info(elem, url)
                     tag_type = elem.name.upper()
