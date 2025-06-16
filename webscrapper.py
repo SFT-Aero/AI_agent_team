@@ -44,6 +44,7 @@ def scrap():
                     f.write(f"URL: {info['url'] or 'No link found'}\n")
                     f.write(f"Date from URL: {info['date_from_url'] or 'Not found'}\n")
                     f.write(f"Teaser: {info['teaser']}\n")
+                    f.write(f"Body: {info['body']}\n")
                     f.write(f"Image: {info['image_url']}\n\n")
 
                 #tag_type = elem.name.upper()
@@ -78,13 +79,23 @@ def extract_article_info(elem, base_url):
     # Date
     date_from_url = extract_date_from_url(url)
 
+    story_div = elem.find('div', class_=['story-text', 'story-location', 'link-Location'])
+    if story_div:
+        teaser_tag = story_div.find('p')
+        teaser = teaser_tag.get_text(strip=True) if teaser_tag else 'No teaser found'
+        body_tags = story_div.find_all('p')
+        body = ' '.join(p.get_text(strip=True) for p in body_tags) if body_tags else 'No body found'
+    else:
+        teaser = 'No teaser found'
+        body = 'No body found'
+
     # Teaser
-    teaser_tag = elem.find('p')
-    teaser = teaser_tag.get_text(strip=True) if teaser_tag else 'No teaser found'
+    #teaser_tag = elem.find('p')
+    #teaser = teaser_tag.get_text(strip=True) if teaser_tag else 'No teaser found'
 
     # Body
-    body_tag = elem.find(class_='text')
-    body = body_tag.get_text(strip=True) if body_tag else 'No body found'
+    #body_tag = elem.find_all(class_='story-text')
+    #body = ' '.join(p.get_text(strip=True) for p in body_tag) if body_tag else 'No body found'
 
     # Image
     image_tag = elem.find('img')
@@ -95,6 +106,7 @@ def extract_article_info(elem, base_url):
         'url': url,
         'date_from_url': date_from_url,
         'teaser': teaser,
+        'body': body,
         'image_url': image_url
     }
 
