@@ -111,8 +111,8 @@ def extract_article_info(elem, base_url):
         'image_url': image_url
     }
 
-if __name__ == '__main__':
-    scrap()
+# if __name__ == '__main__':
+    # scrap()
 
 
 
