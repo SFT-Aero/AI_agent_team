@@ -7,6 +7,8 @@
     # Clean HTML: remove tags from body/teaser fields
 
 from crewai import Agent, Task
+from llm import llm
+
 import datetime
 
 def standardize_category(cat):
@@ -36,7 +38,7 @@ data_ingestor = Agent(
     role="Data Ingestor",
     goal="Clean, standardize, and prepare raw scraped article data for downstream agents",
     verbose=True,
-    llm='gpt-4-1106-preview',
+    llm=llm,
     backstory="""You are a meticulous data specialist who ensures all incoming
     webscraped data is accurate, consistent, and easy to process by others.
     You clean HTML, normalize categories, parse dates, and fill missing fields.""",
