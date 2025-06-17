@@ -85,6 +85,7 @@ data_ingestor = Agent(
 
 def create_cleaning_task(raw_data):
     # What the job is
+    print("Raw data type:", type(raw_data))
     data_ingestor_task = Task(
         description="""Clean and structure the raw webscrapped news data into 
             structured JSON format with title, date, url, category, teaser, body.
