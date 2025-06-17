@@ -58,11 +58,11 @@ def scrap():
 
                     all_articles.append({
                         "title": (f"Title: {info['title']}\n"),
+                        "url": (f"URL: {info['url'] or 'No link found'}\n"),
                         "date": (f"Date from URL: {info['date_from_url'] or 'Not found'}\n"),
                         "category": (f"Category: {info['category']}\n"),
                         "teaser": (f"Teaser: {info['teaser']}\n"),
                         "body": f.write(f"Body: {info['body']}\n"),
-                        "url": (f"URL: {info['url'] or 'No link found'}\n"),
                         "image": (f"Image: {info['image_url']}\n\n"),
                     })
         else:
