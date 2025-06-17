@@ -4,8 +4,3 @@ crewai==0.130.0
 python-dotenv>=1.0.0
 langchain-core
 langchain-community
-langchain-google-genai
-langchain-text-splitters==0.2.0
-protobuf
-opentelemetry-proto
-langsmith
