@@ -17,6 +17,7 @@ def scrap():
     ] # Systematically determined from most frequently used Emerging Disruptor - Societal websites
 
     headers = {'User-Agent': 'Mozilla/5.0'}
+    all_articles = []
 
     for url in urls:
         response = requests.get(url, headers=headers)
@@ -54,21 +55,21 @@ def scrap():
                     f.write(f"Teaser: {info['teaser']}\n")
                     f.write(f"Body: {info['body']}\n")
                     f.write(f"Image: {info['image_url']}\n\n")
+
+                    all_articles.append({
+                        "title": (f"Title: {info['title']}\n"),
+                        "date": (f"Date from URL: {info['date_from_url'] or 'Not found'}\n"),
+                        "category": (f"Category: {info['category']}\n"),
+                        "teaser": (f"Teaser: {info['teaser']}\n"),
+                        "body": f.write(f"Body: {info['body']}\n"),
+                        "url": (f"URL: {info['url'] or 'No link found'}\n"),
+                        "image": (f"Image: {info['image_url']}\n\n"),
+                    })
         else:
             print(f"Failed to fetch {url} with status code {response.status_code}")
         
     # Return a list of article dicts like:
-    return [
-        {
-            "title": (f"Title: {info['title']}\n"),
-            "date": (f"Date from URL: {info['date_from_url'] or 'Not found'}\n"),
-            "category": (f"Category: {info['category']}\n"),
-            "teaser": (f"Teaser: {info['teaser']}\n"),
-            "body": f.write(f"Body: {info['body']}\n"),
-            "url": (f"URL: {info['url'] or 'No link found'}\n"),
-            "image": (f"Image: {info['image_url']}\n\n"),
-        }
-    ]
+    return all_articles
 
 # X
 def extract_date_from_url(url):
