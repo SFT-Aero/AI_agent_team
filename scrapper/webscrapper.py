@@ -7,11 +7,14 @@ import re
 from urllib.parse import urljoin
 from pathlib import Path
 
-
+#ask chatgpt or claude to give me highlight real of world news, tell AI "look at npr and give me the top 10 stories related to ai from date range" show me title, date, first two lines
+#how it reduces, deduces, make meaningful to use
+#how much, how often, do we fact check it? 
+#more of a thought process then just scrapping
 def scrap():
-    urls = [
-        'https://npr.org/', 
-        #'https://bbc.com/', 
+    urls = [                    # what relevance we need to set becuase we are scrapping alot of data
+        'https://npr.org/',     #scrape once a day, or every other day # limits scrap to a week, articles within the week, get only an entire weeks worth of news # remove older stuff, few months old, final output every 2 days, want to stay really current on whats happening.
+        #'https://bbc.com/',  #try the guaridan, washington post, new york times, space news digest
         #'https://www.cnn.com/world/asia', (iffy)
         #'https://weforum.org/' (does not work)
     ] # Systematically determined from most frequently used Emerging Disruptor - Societal websites

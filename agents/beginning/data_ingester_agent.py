@@ -93,6 +93,7 @@ def create_cleaning_task(raw_data):
             Parse and standardize date strings into ISO format (YYYY-MM-DD).
             Output a list of clean, uniform article dictionaries ready for next steps
             Use the provided raw_data input and do not make up articles.
+            If no info found then remove.
         """,
         input={"articles": raw_data},
         expected_output=f'A list of clean, uniform article dictionaries ready for next steps',
