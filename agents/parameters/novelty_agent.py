@@ -15,7 +15,8 @@ researcher = Agent(
         """Driven by a passion for innovation, you seek out breakthrough research 
         that pushes boundaries and reveals new possibilities. Your expertise lies
         in discerning originality and practical novelty in complex technical literature.""",
-    )
+    ),
+    allow_delegation=False
 )
 
 flag_novelty_task = Task(
