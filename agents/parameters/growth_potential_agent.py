@@ -5,7 +5,7 @@ from llm import llm
 
 growth_judge = Agent(
     role="Strategic Growth Analyst",
-    goal="Assess the long-term potential of ideas, projects, or technologies to scale or create significant impact.",
+    goal="Assess the long-term potential of articles, ideas, or technologies to scale or create significant impact.",
     verbose=True,
     llm=llm,
     backstory=(
