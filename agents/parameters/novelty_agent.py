@@ -42,7 +42,21 @@ flag_novelty_task = Task(
 
     Only flag articles that show genuinely new or unexplored applications.
     """,
-    expected_output="Dictionary summarizing flagged articles by category, each with reasons for novelty.",
+    input={cleaned_data},#input={"articles": cleaned_data},
+    expected_output="""
+    A dictionary structured like:
+    {
+        "Unique application": [
+            {"title": "...", "reason": "..."},
+        ],
+        "Novel idea": [
+            {"title": "...", "reason": "..."},
+        ],
+        "Innovative approach": [
+            {"title": "...", "reason": "..."},
+        ]
+    }
+    """,
     max_inter=1,
     tools=[],  # no tools, keep it simple
     agent=researcher
