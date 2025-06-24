@@ -74,26 +74,33 @@ article_cleaning_tool = ArticleCleaningTool()
 # Who is doing the job
 data_ingestor = Agent(
     role="Data Ingestor",
-    goal="Clean, standardize, and prepare raw scraped article data for downstream agents",
+    goal="Clean, standardize, and prepare raw scraped article data for downstream agents "
+        "while strictly avoiding fabrication of any data.",
     verbose=True,
     llm=llm,
     tools=[article_cleaning_tool],
-    backstory="""You are a meticulous data specialist who ensures all incoming
-    webscraped data is accurate, consistent, and easy to process by others.
-    You clean HTML, normalize categories, parse dates, and fill missing fields.""",
+    backstory= "You are a meticulous data specialist who ensures all incoming "
+        "webscraped data is accurate, consistent, and easy to process by others. "
+        "You clean HTML, normalize categories, parse dates, and fill missing fields only when possible. "
+        "You do NOT invent or hallucinate any missing information. "
+        "If critical fields like title or body or teaser or url are missing or empty, "
+        "denoted by No title, body, teaser, or url found, you remove the entry.",
 )
 
 def create_cleaning_task(raw_data):
     # What the job is
     print("Raw data type:", type(raw_data))
     data_ingestor_task = Task(
-        description="""Clean and structure the raw webscrapped news data into 
-            structured JSON format with title, date, url, category, teaser, body.
-            Standardize category names ('Tech' → 'Technology').
-            Parse and standardize date strings into ISO format (YYYY-MM-DD).
-            Output a list of clean, uniform article dictionaries ready for next steps
-            Use the provided raw_data input and do not make up articles.
-            If no info found then remove.
+        description="""
+        Clean and structure the raw webscraped news data into 
+        structured JSON format with the following fields: title, date, url, category, teaser, body.
+
+        Requirements:
+        - Standardize category names (e.g., 'Tech' → 'Technology').
+        - Parse and standardize date strings into ISO format (YYYY-MM-DD).
+        - Remove any article that lacks essential content (no title or no body).
+        - Only use data present in the input; do NOT generate or hallucinate missing information.
+        - Output a list of clean, uniform article dictionaries ready for the next processing steps.
         """,
         input={"articles": raw_data},
         expected_output=f'A list of clean, uniform article dictionaries ready for next steps',
