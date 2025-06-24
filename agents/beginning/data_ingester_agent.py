@@ -83,11 +83,11 @@ data_loader = Agent(
     You are a precise and detail-oriented data cleaner. 
     You receive raw webscraped articles as a list of dictionaries under the 'articles' key.
     You must:
-    - Clean HTML from teaser and body fields.
     - Standardize categories.
     - Parse and standardize dates.
     - Remove invalid or incomplete articles.
     - Return a clean, uniform list ready for downstream agents.
+    You must NOT add, invent, or hallucinate any content or articles.
     Never make up data or fill missing fields beyond standardizing and cleaning.""",
 )
 
@@ -107,8 +107,7 @@ def create_cleaning_task(raw_data):
         - Image
 
         Your job:
-        1. Remove HTML tags from 'Teaser' and 'Body'.
-        2. Standardize 'Category' using this mapping:
+        1. Standardize 'Category' using this mapping:
         Tech → Technology
         AI → Technology
         Health → Health
