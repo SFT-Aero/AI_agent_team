@@ -82,16 +82,17 @@ data_loader = Agent(
     backstory= """You are a careful and precise data specialist. 
         You will be given scraped article data under the key 'articles' as a list. 
         Your job is to remove invalid entries (missing title/body/teaser), fix date formats to YYYY-MM-DD, 
-        standardize categories, and clean text. Do not make anything up. Return the cleaned list.""",
+        standardize categories, and clean text. Do not make anything up. Return the cleaned list. Only return 
+        valid entries that contain a title, url, teaser, and body.""",
 )
 
 def create_cleaning_task(raw_data):
     # What the job is
-    print("Raw data type:", type(raw_data))
+    print("Raw Data for cleaning task:", type(raw_data), len(raw_data))
     print(f"Raw Data: {len(raw_data)} articles for agent")
     data_loader_task = Task(
         description="""
-        Clean the provided list of article dictionaries.
+        Clean the provided list of articles.
 
         - Remove any articles that are duplicate or no title, body, or teaser found
         - Convert dates to ISO format (YYYY-MM-DD)
@@ -105,6 +106,7 @@ def create_cleaning_task(raw_data):
         input={"articles": raw_data},
         expected_output=f'A list of clean, uniform article dictionaries.',
         agent=data_loader,
+        tools=[], 
         max_inter=3,
     )
     return data_loader_task

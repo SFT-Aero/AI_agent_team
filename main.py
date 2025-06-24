@@ -28,7 +28,7 @@ crew1 = Crew(
     process=Process.sequential
 )
 cleaned_data = crew1.kickoff()
-print("Cleaned data", cleaned_data.raw)
+print("Cleaned data object", cleaned_data.tasks_output[0].raw)
 
 # 2. Filter for relevance
 #relevance_task = create_relevance_task(cleaned_data)
