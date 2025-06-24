@@ -13,6 +13,7 @@ from llm import llm
 
 import datetime
 
+"""
 class ArticleCleaningTool(BaseTool):
     name: str = "Article Cleaning Tool"
     description: str = "Clean raw webscraped article data into standardized JSON format."
@@ -69,42 +70,41 @@ class ArticleCleaningTool(BaseTool):
 
 # Instantiate your tool
 article_cleaning_tool = ArticleCleaningTool()
-
+"""
 
 # Who is doing the job
-data_ingestor = Agent(
+data_loader = Agent(
     role="Data Ingestor",
-    goal="Clean, standardize, and prepare raw scraped article data for downstream agents "
-        "while strictly avoiding fabrication of any data.",
+    goal="CClean and prepare raw article data for the agent team without making up any missing information.",
     verbose=True,
     llm=llm,
-    tools=[article_cleaning_tool],
-    backstory= "You are a meticulous data specialist who ensures all incoming "
-        "webscraped data is accurate, consistent, and easy to process by others. "
-        "You clean HTML, normalize categories, parse dates, and fill missing fields only when possible. "
-        "You do NOT invent or hallucinate any missing information. "
-        "If critical fields like title or body or teaser or url are missing or empty, "
-        "denoted by No title, body, teaser, or url found, you remove the entry.",
+    tools=[],
+    backstory= """You are a careful and precise data specialist. 
+        You will be given scraped article data under the key 'articles' as a list. 
+        Your job is to remove invalid entries (missing title/body/teaser), fix date formats to YYYY-MM-DD, 
+        standardize categories, and clean text. Do not make anything up. Return the cleaned list.""",
 )
 
 def create_cleaning_task(raw_data):
     # What the job is
     print("Raw data type:", type(raw_data))
-    data_ingestor_task = Task(
+    print(f"Raw Data: {len(raw_data)} articles for agent")
+    data_loader_task = Task(
         description="""
-        Clean and structure the raw webscraped news data into 
-        structured JSON format with the following fields: title, date, url, category, teaser, body.
+        Clean the provided list of article dictionaries.
 
-        Requirements:
-        - Standardize category names (e.g., 'Tech' → 'Technology').
-        - Parse and standardize date strings into ISO format (YYYY-MM-DD).
-        - Remove any article that lacks essential content (no title or no body).
+        - Remove any articles that are duplicate or no title, body, or teaser found
+        - Convert dates to ISO format (YYYY-MM-DD)
+        - Standardize categories (e.g., 'Tech' → 'Technology')
+        - Clean up text (strip HTML, extra whitespace)
         - Only use data present in the input; do NOT generate or hallucinate missing information.
-        - Output a list of clean, uniform article dictionaries ready for the next processing steps.
+        
+        Output a list of clean, uniform dictionaries.
+
         """,
         input={"articles": raw_data},
-        expected_output=f'A list of clean, uniform article dictionaries ready for next steps',
-        agent=data_ingestor,
+        expected_output=f'A list of clean, uniform article dictionaries.',
+        agent=data_loader,
         max_inter=3,
     )
-    return data_ingestor_task
+    return data_loader_task

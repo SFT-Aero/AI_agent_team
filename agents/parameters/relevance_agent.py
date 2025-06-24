@@ -5,7 +5,7 @@
 from crewai import Agent, Task
 from llm import llm
 
-relevance_agent = Agent(
+relevance = Agent(
     role="Relevance Analyst",
     goal="To identify and surface content that signals potential future change, regardless of topic or domain, enabling downstream agents to assess novelty and growth potential.",
     backstory=(
