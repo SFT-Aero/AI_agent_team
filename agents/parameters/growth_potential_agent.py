@@ -1,4 +1,5 @@
-# Agent to judge future growth potential for scale or impact
+# Agent to judge, estimate future growth potential for scale or impact
+# Will this scale or have impact?
 
 from crewai import Agent, Task
 from llm import llm

@@ -1,4 +1,5 @@
 # Agent to determine articles with unique applications or novel ideas
+# Is this new or unexpected?
 
 from crewai import Agent, Task
 from llm import llm
