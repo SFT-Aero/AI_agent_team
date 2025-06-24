@@ -107,4 +107,4 @@ def create_cleaning_task(raw_data):
         agent=data_ingestor,
         max_inter=3,
     )
-    return data_ingestor_task.expected_output
+    return data_ingestor_task

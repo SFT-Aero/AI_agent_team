@@ -55,4 +55,4 @@ def relevance_task(data):
         tools=[],
         agent=relevance_agent
     )
-    return relevance_task.expected_output
+    return relevance_task

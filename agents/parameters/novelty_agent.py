@@ -13,7 +13,7 @@ researcher = Agent(
     verbose=True,
     llm=llm,
     backstory=(
-        """Driven by a passion for innovation, you seek out breakthrough research 
+        """Driven by a passion for innovation, you seek out breakthrough research
         that pushes boundaries and reveals new possibilities. Your expertise lies
         in discerning originality and practical novelty in complex technical literature.""",
     ),
