@@ -21,36 +21,38 @@ relevance_agent = Agent(
     allow_delegation=False
 )
 
-relevance_task = Task(
-    description="""
-    Review the provided articles and select those that represent signals of potential future change.
+def relevance_task(data):
+    relevance_task = Task(
+        description="""
+        Review the provided articles and select those that represent signals of potential future change.
 
-    Determine if it contains any indication of future 
-    change (e.g., new behaviors, technologies, trends, ideas, or systems).
+        Determine if it contains any indication of future 
+        change (e.g., new behaviors, technologies, trends, ideas, or systems).
 
-    Flag content that includes:
-        Indicators of disruption, experimentation, or innovation
-        First-time occurrences or early adoption patterns
-        Shifts in consumer, business, or cultural behavior
-        New policies or investments aimed at future goals
+        Flag content that includes:
+            Indicators of disruption, experimentation, or innovation
+            First-time occurrences or early adoption patterns
+            Shifts in consumer, business, or cultural behavior
+            New policies or investments aimed at future goals
 
-    Discard content that is:
-        Purely historical or backward-looking
-        Descriptive of status quo with no signs of change
-        Pass forward only the potentially future-relevant signals for further evaluation.
+        Discard content that is:
+            Purely historical or backward-looking
+            Descriptive of status quo with no signs of change
+            Pass forward only the potentially future-relevant signals for further evaluation.
 
-    Output a structured dictionary summarizing each selected article and its corresponding signal analysis.
-    """,
-    input={"articles": cleaned_data},
-    expected_output="A dictionary structured like this:"
-    """{
-        "is_relevant": true,
-        "confidence_score": 0.87,
-        "reason": "The content describes a new city-wide pilot program testing AI-powered traffic signals to reduce urban congestion, which signals experimentation and potential systems-level change.",
-        "signal_type": "Technology + Infrastructure",
-        "time_sensitivity": "Recent (within 6 months)",
-    }""",
-    max_inter=1,
-    tools=[],
-    agent=relevance_agent
-)
+        Output a structured dictionary summarizing each selected article and its corresponding signal analysis.
+        """,
+        input={"articles": data},
+        expected_output="A dictionary structured like this:"
+        """{
+            "is_relevant": true,
+            "confidence_score": 0.87,
+            "reason": "The content describes a new city-wide pilot program testing AI-powered traffic signals to reduce urban congestion, which signals experimentation and potential systems-level change.",
+            "signal_type": "Technology + Infrastructure",
+            "time_sensitivity": "Recent (within 6 months)",
+        }""",
+        max_inter=1,
+        tools=[],
+        agent=relevance_agent
+    )
+    return relevance_task.expected_output

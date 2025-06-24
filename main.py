@@ -18,9 +18,23 @@ from agents.end.critic_agent import critique_task
 from agents.end import consensus_agent
 from agents.end.consensus_agent import consensus_task
 
+# Step 1: Clean raw scraped data
 raw_data = scrap() # Run your webscraper and get article data
-data_ingester_task = create_cleaning_task(raw_data)
-novelty = flag_novelty_task.a
+cleaned_data = create_cleaning_task(raw_data) # Assuming this returns list of cleaned articles
+print(f"Cleaned Data: {len(cleaned_data)} articles")
+
+# Step 2: Run Relevance Agent on cleaned data
+relevant_data = relevance_task(cleaned_data)  # filtered relevant articles
+print(f"Relevant Data: {len(relevant_data)} articles")
+
+# Step 3: Run Novelty Agent on relevant data
+novel_data = flag_novelty_task.run()
+print(f"Novel Data: {len(novel_data)} articles")
+
+# Step 4: Run Growth Potential Agent on relevant data
+growth_data = growth_potential_task.run()
+print(f"Growth Data: {len(growth_data)} articles")
+
 
 # Build and run the Crew
 crew = Crew(

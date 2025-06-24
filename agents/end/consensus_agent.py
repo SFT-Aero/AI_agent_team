@@ -7,7 +7,7 @@
 from crewai import Agent, Task
 from llm import llm
 
-decision_finalizer_agent = Agent(
+consensus_agent = Agent(
     role="Decision Finalizer",
     goal=(
         "Review all candidate decisions or selections across categories, "
@@ -24,7 +24,7 @@ decision_finalizer_agent = Agent(
     allow_delegation=False
 )
 
-decision_finalizer_task = Task(
+consensus_task = Task(
     description="""
     Review all candidate selections and evaluations across categories.
 
