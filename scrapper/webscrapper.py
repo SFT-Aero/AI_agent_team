@@ -17,6 +17,11 @@ def scrap():
         #'https://bbc.com/',  #try the guaridan, washington post, new york times, space news digest
         #'https://www.cnn.com/world/asia', (iffy)
         #'https://weforum.org/' (does not work)
+        #'https://news.ycombinator.com/'
+        #'https://restofworld.org/'
+        #'https://www.wired.com/magazine/'
+        # 'https://futurology.today/'
+
     ] # Systematically determined from most frequently used Emerging Disruptor - Societal websites
 
     headers = {'User-Agent': 'Mozilla/5.0'}
