@@ -21,7 +21,7 @@ relevance_agent = Agent(
     allow_delegation=False
 )
 
-def relevance_task(data):
+def create_relevance_task(data):
     relevance_task = Task(
         description="""
         Review the provided articles and select those that represent signals of potential future change.

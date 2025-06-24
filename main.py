@@ -10,7 +10,7 @@ from agents.beginning.data_ingester_agent import create_cleaning_task
 #from agents.parameters.growth_potential_agent import growth_potential_task
 
 from agents.parameters import relevance_agent
-from agents.parameters.relevance_agent import relevance_task
+from agents.parameters.relevance_agent import create_relevance_task
 
 #from agents.end import critic_agent
 #from agents.end.critic_agent import critique_task
@@ -20,30 +20,25 @@ from agents.parameters.relevance_agent import relevance_task
 
 # Step 1: Clean raw scraped data
 raw_data = scrap() # Run your webscraper and get article data
-cleaning_task = create_cleaning_task(raw_data) # Assuming this returns list of cleaned articles
-cleaned_data = cleaning_task.run()
+print(f"Raw Data: {len(raw_data)} articles")
+
+# 1. Clean the data
+cleaning_task = create_cleaning_task(raw_data)
+crew1 = Crew(
+    agents=[data_ingester_agent],
+    tasks=[cleaning_task],
+    process=Process.sequential
+)
+cleaned_data = crew1.run()
 print(f"Cleaned Data: {len(cleaned_data)} articles")
 print("Cleaned data", cleaned_data)
 
-# Step 2: Run Relevance Agent on cleaned data
-relevance_task = relevance_task(cleaned_data)  # filtered relevant articles
-relevant_data = relevance_task.run()
-print(f"Relevant Data: {len(relevant_data)} articles")
-
-# Step 3: Run Novelty Agent on relevant data
-#novel_data = flag_novelty_task.run()
-#print(f"Novel Data: {len(novel_data)} articles")
-
-# Step 4: Run Growth Potential Agent on relevant data
-#growth_data = growth_potential_task.run()
-#print(f"Growth Data: {len(growth_data)} articles")
-
-
-# Build and run the Crew
-crew = Crew(
-    agents=[data_ingester_agent, relevance_agent],
-    tasks=[cleaning_task, relevance_task],
+# 2. Filter for relevance
+relevance_task = create_relevance_task(cleaned_output)
+crew2 = Crew(
+    agents=[relevance_agent],
+    tasks=[relevance_task],
     process=Process.sequential
 )
-
-crew.kickoff()
+relevant_data = crew2.run()
+print(f"Relevant Data: {len(relevant_data)} articles")
