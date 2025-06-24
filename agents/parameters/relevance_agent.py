@@ -4,7 +4,9 @@
 
 from crewai import Agent, Task
 from llm import llm
-from crewai.tools import RagTool
+#from crewai_tools import RagTool
+#from crewai.tools import RagTool
+from crewai_tools import RagTool
 
 rag_tool = RagTool()
 rag_tool.add(data_type="file", path='/Users/shan/AI_agent_team/scrapper/ws_output.html')
