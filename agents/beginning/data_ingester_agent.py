@@ -79,11 +79,16 @@ data_loader = Agent(
     verbose=True,
     llm=llm,
     tools=[],
-    backstory= """You are a careful and precise data specialist. 
-        You will be given scraped article data under the key 'articles' as a list. 
-        Your job is to remove invalid entries (missing title/body/teaser), fix date formats to YYYY-MM-DD, 
-        standardize categories, and clean text. Do not make anything up. Return the cleaned list. Only return 
-        valid entries that contain a title, url, teaser, and body.""",
+    backstory= """
+    You are a precise and detail-oriented data cleaner. 
+    You receive raw webscraped articles as a list of dictionaries under the 'articles' key.
+    You must:
+    - Clean HTML from teaser and body fields.
+    - Standardize categories.
+    - Parse and standardize dates.
+    - Remove invalid or incomplete articles.
+    - Return a clean, uniform list ready for downstream agents.
+    Never make up data or fill missing fields beyond standardizing and cleaning.""",
 )
 
 def create_cleaning_task(raw_data):
@@ -92,15 +97,31 @@ def create_cleaning_task(raw_data):
     print(f"Raw Data: {len(raw_data)} articles for agent")
     data_loader_task = Task(
         description="""
-        Clean the provided list of articles.
+        You will receive a list of article dictionaries under the input key 'articles'. Each article dict has keys like:
+        - Title
+        - URL
+        - Date from URL
+        - Category
+        - Teaser
+        - Body
+        - Image
 
-        - Remove any articles that are duplicate or no title, body, or teaser found
-        - Convert dates to ISO format (YYYY-MM-DD)
-        - Standardize categories (e.g., 'Tech' → 'Technology')
-        - Clean up text (strip HTML, extra whitespace)
-        - Only use data present in the input; do NOT generate or hallucinate missing information.
-        
-        Output a list of clean, uniform dictionaries.
+        Your job:
+        1. Remove HTML tags from 'Teaser' and 'Body'.
+        2. Standardize 'Category' using this mapping:
+        Tech → Technology
+        AI → Technology
+        Health → Health
+        Science → Science
+        Business → Business
+        World or International → World
+        Books → Culture
+        3. Parse 'Date from URL' to ISO format YYYY-MM-DD. If invalid or missing, set as 'Unknown Date'.
+        4. Remove any articles missing 'Title', 'Teaser', or 'Body' or where those fields are empty or contain phrases like 'No title found'.
+        5. Return a cleaned list of article dicts with keys: title, url, date, category, teaser, body, image.
+
+        - Do NOT add, invent, or hallucinate any articles or content.
+        - Do NOT include any additional text, explanation, or commentary.
 
         """,
         input={"articles": raw_data},
