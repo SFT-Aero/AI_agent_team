@@ -24,8 +24,7 @@ relevance = Agent(
     - You MUST keep the original values EXACTLY as given.
     - The 'reason' field must be a short explanation derived ONLY from the input article's 'teaser' and 'body' fields.
     - If an article lacks sufficient content for relevance judgment, mark "is_relevant": false with an appropriate reason.
-    - Output a JSON list of article objects with exactly these fields:
-    "title", "URL", "date", "category", "is_relevant", "confidence_score", "reason".
+    - Output your top 5 most relevant articles.
     - Do NOT hallucinate or fabricate anything.
     """
 )
@@ -46,20 +45,10 @@ def create_relevance_task(data):
         Base your relevance judgment ONLY on the actual text in the 'title', 'teaser', and 'body'.
         If the article lacks content to determine relevance, mark it as not relevant.
 
-        Output a structured dictionary summarizing each selected article 
-        only from the given JSON and its corresponding signal analysis.
+        Output your top 5 most relevant articles.
         """,
         input={"articles": data},
-        expected_output="A dictionary structured like this:"
-        """{
-            "title: [original title],
-            "URL": [original url],
-            "date": [original date],
-            "category": [original category],
-            "is_relevant": true or false,
-            "confidence_score": 0.0 to 1.0,
-            "reason": [short explanation grounded ONLY in teaser or body content],
-        }""",
+        expected_output="Your top 5 most relevent articles and your reason why.",
         max_inter=1,
         tools=[],
         agent=relevance,
