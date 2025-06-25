@@ -6,17 +6,20 @@ from crewai import Agent, Task
 from llm import llm
 #from crewai_tools import RagTool
 #from crewai.tools import RagTool
-from crewai_tools import RagTool
+import crewai_tools
 
-rag_tool = RagTool()
-rag_tool.add(data_type="file", path='/Users/shan/AI_agent_team/scrapper/ws_output.html')
+#print(dir(crewai_tools))
+
+
+#rag_tool = RagTool()
+#rag_tool.add(data_type="file", path='/Users/shan/AI_agent_team/scrapper/ws_output.html')
 
 relevance = Agent(
     role="Relevance Analyst",
     goal="To identify and surface content that signals potential future change, regardless of topic or domain, enabling downstream agents to assess novelty and growth potential.",
     verbose = True,
     llm=llm,
-    tools=[rag_tool],
+    #tools=[rag_tool],
     backstory=(
         "You were trained on thousands of weak signals, foresight reports, and innovation briefings. You don’t need a specific topic — "
         "your job is to scan broadly across categories (tech, society, business, culture, science, etc.) "
@@ -32,10 +35,7 @@ relevance = Agent(
 
 def create_relevance_task(data):
     relevance_task = Task(
-        description="""
-        You must analyzing retrived knowledge for explicit indicators of future change.
-
-        Use only the content retrieved by your RagTool - do not hallucinate or add your own assumptions.
+        description=""" You will receive a list of clean, uniform article dictionaries to analyze for explicit indicators of future change.
         
         Flag content that includes:
             Indicators of disruption, experimentation, or innovation
@@ -49,8 +49,6 @@ def create_relevance_task(data):
             Pass forward only the potentially future-relevant signals for further evaluation.
 
         You must NOT hallucinate or invent new articles or facts.
-        
-        If there is no such content, respond: 'None'.
 
         Output a structured dictionary only summarizing each selected article and its corresponding signal analysis, no extra text..
         """,
@@ -70,3 +68,9 @@ def create_relevance_task(data):
             "signal_type": "type/category of signal detected in article or 'None'",
             "time_sensitivity": e.g. 'Recent (within 3 months)', 'Not recent',
         }"""
+
+#You must analyzing retrived knowledge for explicit indicators of future change.
+
+#Use only the content retrieved by your RagTool - do not hallucinate or add your own assumptions.
+
+#If there is no such content, respond: 'None'.

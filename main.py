@@ -42,21 +42,21 @@ dummy_data = [
 ]
 
 # 1. Clean the data
-#cleaning_task = create_cleaning_task(dummy_data)
-#crew1 = Crew(
-    #agents=[data_loader],
-    #tasks=[cleaning_task],
-    #process=Process.sequential
-#)
-#cleaned_data = crew1.kickoff()
-#print("Cleaned data object", cleaned_data.tasks_output[0].raw)
+cleaning_task = create_cleaning_task(dummy_data)
+crew1 = Crew(
+    agents=[data_loader],
+    tasks=[cleaning_task],
+    process=Process.sequential
+)
+cleaned_data = crew1.kickoff()
+print("Cleaned data object", cleaned_data.tasks_output[0].raw)
 
 # 2. Filter for relevance
 relevance_task = create_relevance_task(dummy_data)
 crew2 = Crew(
     agents=[relevance],
     tasks=[relevance_task],
-    verbose=True,
+    #verbose=True,
     process=Process.sequential
 )
 relevant_data = crew2.kickoff()
