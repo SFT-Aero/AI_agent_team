@@ -106,26 +106,15 @@ def create_cleaning_task(raw_data):
         - Body
         - Image
 
-        Your job:
-        1. Remove HTML tags from 'Teaser' and 'Body'.
-        2. Standardize 'Category' using this mapping:
-        Tech → Technology
-        AI → Technology
-        Health → Health
-        Science → Science
-        Business → Business
-        World or International → World
-        Books → Culture
-        3. Parse 'Date from URL' to ISO format YYYY-MM-DD. If invalid or missing, set as 'Unknown Date'.
-        4. Remove any articles missing 'Title', 'Teaser', or 'Body' or where those fields are empty or contain phrases like 'No title found'.
-        5. Return a cleaned list of article dicts with keys: title, url, date, category, teaser, body, image.
-
+        Using only the data passed in:
+        -Perform simple, deterministic tasks like cleaning, standardizing, and filtering.
+        -Return only the cleaned version of your input — no guesses, no fakes, no fantasy articles.
         - Do NOT add, invent, or hallucinate any articles or content.
         - Do NOT include any additional text, explanation, or commentary.
 
         """,
         input={"articles": raw_data},
-        expected_output=f'A list of clean, uniform article dictionaries.',
+        expected_output=f'A clean, uniform list of article dictionaries only using my input.',
         agent=data_loader,
         tools=[], 
         max_inter=3,

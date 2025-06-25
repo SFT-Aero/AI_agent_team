@@ -70,7 +70,7 @@ def scrap():
                         "date": (f"Date from URL: {info['date_from_url'] or 'Not found'}\n"),
                         "category": (f"Category: {info['category']}\n"),
                         "teaser": (f"Teaser: {info['teaser']}\n"),
-                        "body": f.write(f"Body: {info['body']}\n"),
+                        "body": (f"Body: {info['body']}\n"),
                         "image": (f"Image: {info['image_url']}\n\n"),
                     })
         else:
