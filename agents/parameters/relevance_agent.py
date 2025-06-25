@@ -14,7 +14,20 @@ relevance = Agent(
         "something new is beginning, shifting, or evolving."
         "You analyze langauge of transition and analyze the given JSON for future-facing relevance."
     ),
-    allow_delegation=False
+    allow_delegation=False,
+    system_template="""
+    You are a strict relevance detection agent. You MUST follow these rules:
+
+    - You will ONLY analyze the JSON array of articles given in input.
+    - Do NOT generate any new article titles, URLs, dates, categories, teaser text, or body content.
+    - Do NOT paraphrase or modify any of the input data fields.
+    - You MUST keep the original values EXACTLY as given.
+    - The 'reason' field must be a short explanation derived ONLY from the input article's 'teaser' and 'body' fields.
+    - If an article lacks sufficient content for relevance judgment, mark "is_relevant": false with an appropriate reason.
+    - Output a JSON list of article objects with exactly these fields:
+    "title", "URL", "date", "category", "is_relevant", "confidence_score", "reason".
+    - Do NOT hallucinate or fabricate anything.
+    """
 )
 
 def create_relevance_task(data):
@@ -29,19 +42,23 @@ def create_relevance_task(data):
         -Shifts in consumer, business, or cultural behavior
         -New policies or investments aimed at future goals
 
+        Use ONLY the data in each article. DO NOT generate or guess missing values (e.g., do not make up new titles, bodies, or links).
+        Base your relevance judgment ONLY on the actual text in the 'title', 'teaser', and 'body'.
+        If the article lacks content to determine relevance, mark it as not relevant.
+
         Output a structured dictionary summarizing each selected article 
         only from the given JSON and its corresponding signal analysis.
         """,
         input={"articles": data},
         expected_output="A dictionary structured like this:"
         """{
-            "title: ,
-            "URL": ,
-            "date": ,
-            "category": ,
+            "title: [original title],
+            "URL": [original url],
+            "date": [original date],
+            "category": [original category],
             "is_relevant": true or false,
-            "confidence_score": 0 to 1,
-            "reason": ,
+            "confidence_score": 0.0 to 1.0,
+            "reason": [short explanation grounded ONLY in teaser or body content],
         }""",
         max_inter=1,
         tools=[],
