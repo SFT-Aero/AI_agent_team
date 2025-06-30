@@ -4,9 +4,13 @@
 
 from crewai import Agent, Task
 from llm import llm
-from crewai_tools import TXTSearchTool
 
-rag_tool = TXTSearchTool(txt='./parameters/testdata.txt')
+import sys
+sys.path.insert(0, "/Users/shan/AI_agent_team/crewAI-tools")
+print(sys.path)
+from crewai_tools.tools.txt_search_tool import TXTSearchTool
+
+rag_tool = TXTSearchTool(txt='./data/testdata.txt')
 
 relevance = Agent(
     role="Relevance Analyst",
@@ -32,8 +36,8 @@ relevance = Agent(
     """
 )
 
-def create_relevance_task(data):
-    relevance_task = Task(
+#def create_relevance_task(data):
+relevance_task = Task(
         description="""
         Analyze the given txt file and select from the given txt file those that 
         represent signals of potential future change.
@@ -51,8 +55,10 @@ def create_relevance_task(data):
         #input={"articles": data},
         expected_output="Your top 5 most relevent articles and your reason why.",
         max_inter=1,
-        tools=[rag_tool],
+        #tools=[rag_tool],
         agent=relevance,
-        output_file='parameters/relevance.txt'
+        output_file='data/relevance.txt'
     )
-    return relevance_task
+    #return relevance_task
+
+relevance_task.execute()

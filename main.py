@@ -1,6 +1,7 @@
 from crewai import Crew, Process
 from scrapper.webscrapper import scrap
-from agents.beginning.data_ingester_agent import data_loader, create_cleaning_task
+
+#from agents.beginning.data_ingester_agent import data_loader, create_cleaning_task
 
 #from agents.parameters import novelty_agent
 #from agents.parameters.novelty_agent import flag_novelty_task
@@ -15,6 +16,7 @@ from agents.parameters.relevance_agent import relevance, create_relevance_task
 
 #from agents.end import consensus_agent
 #from agents.end.consensus_agent import consensus_task
+
 
 def chunk_articles(articles, chunk_size=10):
     for i in range(0, len(articles), chunk_size):
@@ -36,6 +38,7 @@ print(f"Raw Data: {len(raw_data)} articles")
 
 # 2. Filter for relevance
 all_relevant_outputs = []
+raw_data = '/Users/shan/AI_agent_team/data/testdata.txt'
 
 for i, batch in enumerate(chunk_articles(raw_data, 10)):
     print(f"\nProcessing relevance batch {i+1} with {len(batch)} articles")
