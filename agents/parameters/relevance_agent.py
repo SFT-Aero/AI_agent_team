@@ -52,6 +52,6 @@ def create_relevance_task(data):
         max_inter=1,
         tools=[],
         agent=relevance,
-        output_file='parameters/relevance.txt'
+        output_file='agents/parameters/relevance.txt'
     )
     return relevance_task
