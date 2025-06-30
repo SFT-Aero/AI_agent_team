@@ -46,5 +46,5 @@ for i, batch in enumerate(chunk_articles(raw_data, 10)):
         process=Process.sequential
     )
     relevant_data = crew2.kickoff()
-    print(f"Batch {i+1} result preview:", relevant_data.tasks_output[0].raw[:500])
+    #print(f"Batch {i+1} result preview:", relevant_data.tasks_output[0].raw[:500])
     all_relevant_outputs.append(relevant_data.tasks_output[0].raw)
