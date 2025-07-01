@@ -7,18 +7,20 @@ import re
 from urllib.parse import urljoin
 from pathlib import Path
 
+# Add additional websites - the guaridan, washington post, new york times, space news digest
+# Websites systematically determined from most frequently used Emerging Disruptor - Societal websites
 def scrap():
-    urls = [                    # what relevance we need to set becuase we are scrapping alot of data
-        'https://npr.org/',     #scrape once a day, or every other day # limits scrap to a week, articles within the week, get only an entire weeks worth of news # remove older stuff, few months old, final output every 2 days, want to stay really current on whats happening.
-        #'https://bbc.com/',  #try the guaridan, washington post, new york times, space news digest
-        #'https://www.cnn.com/world/asia', (iffy)
-        #'https://weforum.org/' (does not work)
+    urls = [
+        'https://npr.org/',
+        #'https://bbc.com/',
+        #'https://www.cnn.com/world/asia', # Does not work well due to pay wall
+        #'https://weforum.org/' # Does not work, unsure why
         #'https://news.ycombinator.com/'
         #'https://restofworld.org/'
         #'https://www.wired.com/magazine/'
         # 'https://futurology.today/'
 
-    ] # Systematically determined from most frequently used Emerging Disruptor - Societal websites
+    ]
 
     headers = {'User-Agent': 'Mozilla/5.0'}
     all_articles = []
@@ -30,20 +32,18 @@ def scrap():
             print('Selected URL: ', url)
 
             soup = BeautifulSoup(response.text, 'html.parser')
-            #print(soup.find_all('div'))
-            #print(soup.find('meta', {'name': 'author'})) 
 
             # Collect all <article> tags first
             articles = soup.find_all('article')
 
-            # Also collect <div> tags that have common article-related classes
+            # Collect <div> tags that have common article-related classes
             divs = soup.find_all('div')
             article_divs = [div for div in divs if any('story' in c or 'card' in c or 'promo' in c for c in div.get('class', []))]
 
             # Combine all elements to parse
             elements_to_parse = articles + article_divs
 
-            home = Path.home()  # this is automatically /Users/yourname
+            home = Path.home()  # This is /Users/yourname
             path = home / 'AI_agent_team' / 'scrapper' / 'ws_output.html'
 
             with open(path , 'w', encoding='utf-8') as f:
@@ -71,11 +71,10 @@ def scrap():
                     })
         else:
             print(f"Failed to fetch {url} with status code {response.status_code}")
-        
-    # Return a list of article dicts like:
+    
     return all_articles
 
-# X
+# Extract date from url
 def extract_date_from_url(url):
     if not url:
         return None
@@ -84,7 +83,7 @@ def extract_date_from_url(url):
         return f"{match.group(1)}-{match.group(2)}-{match.group(3)}"
     return None
 
-# X
+# Extract other article information
 def extract_article_info(elem, base_url):
     # Title
     title_tag = elem.find(class_='title') or elem.find(class_='headline') or elem.find('h1', class_='headline__text')
@@ -128,9 +127,6 @@ def extract_article_info(elem, base_url):
         'body': body,
         'image_url': image_url
     }
-
-# if __name__ == '__main__':
-    # scrap()
 
 
 
