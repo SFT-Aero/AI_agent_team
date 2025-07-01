@@ -1,4 +1,4 @@
-# UI to select category, signals preference, resource to scrap from
+# UI to select category and signal preference
 import streamlit as st
 
 st.set_page_config(page_title="Foresight Signal Generator", layout="wide")
