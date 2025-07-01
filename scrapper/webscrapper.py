@@ -1,5 +1,5 @@
-# TOOL that scrapes the web, extracting data from websites, to aid the agent in decision-making
-# Faster run-time and can be plugged into multiple agents, as needed
+# Tool that scrapes the web, extracting data from websites, to aid the agents in decision-making
+# Fast run-time and can be plugged into multiple agents, as needed
 
 import requests
 from bs4 import BeautifulSoup
@@ -7,10 +7,6 @@ import re
 from urllib.parse import urljoin
 from pathlib import Path
 
-#ask chatgpt or claude to give me highlight real of world news, tell AI "look at npr and give me the top 10 stories related to ai from date range" show me title, date, first two lines
-#how it reduces, deduces, make meaningful to use
-#how much, how often, do we fact check it? 
-#more of a thought process then just scrapping
 def scrap():
     urls = [                    # what relevance we need to set becuase we are scrapping alot of data
         'https://npr.org/',     #scrape once a day, or every other day # limits scrap to a week, articles within the week, get only an entire weeks worth of news # remove older stuff, few months old, final output every 2 days, want to stay really current on whats happening.

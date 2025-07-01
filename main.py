@@ -7,7 +7,7 @@ from futuristic_agent import futuristic_task, futuristic_agent
 raw_data = scrap()
 print(f"Raw Data: {len(raw_data)} articles")
 
-#Step 2: Pass article data to futuristic agent
+# Step 2: Pass article data to futuristic agent
 futuristic_task = futuristic_task(raw_data)
 
 # Step 3: Runs the agent crew

@@ -25,3 +25,9 @@ def futuristic_task(articles):
         agent=futuristic_agent
     )
     return future_signal_task
+
+# Tell AI "look at npr and give me the top 10 stories related to AI from date range" show me title, date, first two lines
+# Break down how it reduces, deduces, make articles meaningful to use
+# How much data, how often do we scrap, do we fact check the data
+# Make more of a thought process then just scrapping
+# Scrape every 2 days, scrape once a day, Remove articles that are a few months old, want to stay current
