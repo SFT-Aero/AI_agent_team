@@ -1,7 +1,7 @@
 from crewai import Agent, Task
 from llm import llm
 
-# Step 1: Create the LLM-powered agent
+# Creates the LLM-powered futuristic agent
 futuristic_agent = Agent(
     role="Foresight Analyst",
     goal="Identify signals of future societal or technological change from real articles",
@@ -10,8 +10,9 @@ futuristic_agent = Agent(
     llm=llm
 )
 
+# Task for futuristic agent to identify 5 signals given the articles from web scrapper
 def futuristic_task(articles):
-    # Step 2: Create the task with the scraped content
+    # List comprehension to create human-readable summary of all articles
     article_summaries = "\n\n".join([f"Title: {a['title']}\nTeaser: {a['teaser'][:1000]}" for a in articles])  # Limit length
 
     future_signal_task = Task(
