@@ -6,12 +6,29 @@ from bs4 import BeautifulSoup
 import re
 from urllib.parse import urljoin
 from pathlib import Path
+import csv
+
+# Read URLs from the input CSV file
+def read_urls_from_csv(input_csv):
+    with open(input_csv, mode='r', newline='', encoding='utf-8') as file:
+        reader = csv.DictReader(file)
+        urls = [row['url'] for row in reader]
+    return urls
+
+# Write the scraped data to a new CSV file
+def write_scraped_data_to_csv(output_csv, scraped_data):
+    fieldnames = ['title', 'url', 'date', 'category', 'teaser', 'body', 'image']
+    
+    with open(output_csv, mode='w', newline='', encoding='utf-8') as file:
+        writer = csv.DictWriter(file, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(scraped_data)
 
 # Add additional websites - the guaridan, washington post, new york times, space news digest
 # Websites systematically determined from most frequently used Emerging Disruptor - Societal websites
-def scrap():
-    urls = [
-        'https://npr.org/',
+def scrap(urls):
+    #urls = [
+        #'https://npr.org/',
         #'https://bbc.com/',
         #'https://www.cnn.com/world/asia', # Does not work well due to pay wall
         #'https://weforum.org/' # Does not work, unsure why
@@ -21,7 +38,7 @@ def scrap():
         #'https://futurology.today/'
         #'https://techcrunch.com/'
 
-    ]
+    #]
 
     headers = {'User-Agent': 'Mozilla/5.0'}
     all_articles = []
