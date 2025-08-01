@@ -18,7 +18,8 @@ def scrap():
         #'https://news.ycombinator.com/'
         #'https://restofworld.org/'
         #'https://www.wired.com/magazine/'
-        # 'https://futurology.today/'
+        #'https://futurology.today/'
+        #'https://techcrunch.com/'
 
     ]
 
