@@ -1,4 +1,4 @@
-from crewai import Crew
+from crewai import Crew, Process
 from scrapper.webscrapper import scrap, read_urls_from_csv, write_scraped_data_to_csv
 
 from futuristic_agent import futuristic_task, futuristic_agent, disruptive_economy_task
@@ -22,12 +22,13 @@ print(f"Scraped data has been saved to {output_csv}")
 
 # Step 3: Pass article data to futuristic agent
 futuristic_task = futuristic_task(raw_data)
-economic_task = disruptive_economy_task(raw_data)
+disruptive_economy_task = disruptive_economy_task(raw_data)
 
 # Step 4: Runs the agent crew
 crew = Crew(
     agents=[futuristic_agent],
-    tasks=[futuristic_task, economic_task]
+    tasks=[futuristic_task, disruptive_economy_task],
+    process=Process.sequential
 )
 
 output = crew.kickoff()
