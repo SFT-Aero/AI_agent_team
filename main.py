@@ -27,8 +27,9 @@ disruptive_economy_task = disruptive_economy_task(raw_data)
 # Step 4: Runs the agent crew
 crew = Crew(
     agents=[futuristic_agent],
-    tasks=[futuristic_task, disruptive_economy_task],
-    process=Process.sequential
+    tasks=[disruptive_economy_task],
+    #process=Process.sequential
+    #futuristic_task, 
 )
 
 output = crew.kickoff()

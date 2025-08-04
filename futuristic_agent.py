@@ -34,12 +34,12 @@ def disruptive_economy_task(articles):
 
     disruptive_signal_task = Task(
         description=(
-            "Analyze the articles below and identify the 5 most economically disruptive signals. "
+            "Analyze the articles below and identify the 10 most societally disruptive signals. "
             "Justify each selection briefly."
             "Approach this as a sense-making process: consider systemic shifts, unexpected externalities, behavioral impacts, or technological inflections."
             f"\n\n{article_summaries}"
         ),
-        expected_output="A list of 5 articles with titles and brief justification for why each signal is economically disruptive",
+        expected_output="A list of 10 articles with titles, 2 sentence summary of the article, and brief justification for why each signal is societally disruptive",
         agent=futuristic_agent
     )
     return disruptive_signal_task
