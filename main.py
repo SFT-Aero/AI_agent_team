@@ -21,23 +21,25 @@ print(f"Scraped data has been saved to {output_csv}")
 
 # Step 3: Pass article data to futuristic agent
 futuristic_task = futuristic_task(raw_data)
-
-#disruptive_economy_task = disruptive_economy_task(raw_data)
+disruptive_economy_task = disruptive_economy_task(raw_data)
 
 # Step 4: Runs the agent crew
-crew = Crew(
+crew1 = Crew(
     agents=[futuristic_agent],
     tasks=[futuristic_task],
-    process=Process.sequential
 )
-#disruptive_economy_task
-
-output = crew.kickoff()
-
-csv = parse_agent_output(output.raw)
+#output = crew.kickoff()
+futuristic_output = crew1.kickoff()
+csv = parse_agent_output(futuristic_output.raw)
 save_to_csv(csv, signals_csv)
+
+crew2 = Crew(
+    agents=[futuristic_agent],
+    tasks=[disruptive_economy_task],
+)
+economy_output = crew2.kickoff()
+csv = parse_agent_output(economy_output.raw)
+save_to_csv(csv, econ_csv)
 
 #print(output)
 
-#write_agent_signals_to_csv(signals_csv, output['futuristic_task'])
-#write_agent_signals_to_csv(econ_csv, output[1])
