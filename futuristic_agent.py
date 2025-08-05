@@ -61,15 +61,21 @@ def parse_agent_output(agent_output):
         # Clean the entry by removing all unnecessary spaces
         cleaned_entry = re.sub(r'\s+', ' ', entry).strip()  # Replace all excessive whitespaces with a single space
         
+        title = re.search(r"^([^U]+)", cleaned_entry)  # Match the title before the URL
+        url = re.search(r"URL:\s*(https?://[^\s]+)", cleaned_entry)  # Extract the URL
+        category = re.search(r"Category:\s*([^\n]+)", cleaned_entry)  # Extract the Category
+        summary = re.search(r"Summary:\s*([^\n]+)", cleaned_entry)  # Extract the Summary
+        justification = re.search(r"Justification:\s*([^\n]+)", cleaned_entry)  # Extract the Justification
+
         # Split the cleaned entry into lines by detecting "URL:", "Category:", etc.
-        title = cleaned_entry.split("URL:")[0].strip()  # Title is before "URL:"
-        remaining_text = cleaned_entry.split("URL:")[1].strip()  # Everything after "URL:"
+        #title = cleaned_entry.split("URL:")[0].strip()  # Title is before "URL:"
+        #remaining_text = cleaned_entry.split("URL:")[1].strip()  # Everything after "URL:"
         
         # Use regex to extract URL, Category, Summary, and Justification
-        url = re.search(r"URL:\s*(https?://[^\s]+)", remaining_text)
-        category = re.search(r"Category:\s*([^\n]+)", remaining_text)
-        summary = re.search(r"Summary:\s*([^\n]+)", remaining_text)
-        justification = re.search(r"Justification:\s*([^\n]+)", remaining_text)
+        #url = re.search(r"URL:\s*(https?://[^\s]+)", remaining_text)
+        #category = re.search(r"Category:\s*([^\n]+)", remaining_text)
+        #summary = re.search(r"Summary:\s*([^\n]+)", remaining_text)
+        #justification = re.search(r"Justification:\s*([^\n]+)", remaining_text)
 
         # If not found, set default values
         url = url.group(1) if url else "URL Missing"
