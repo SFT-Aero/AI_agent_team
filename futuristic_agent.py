@@ -61,9 +61,12 @@ def parse_agent_output(agent_output):
         # Clean the entry by removing all unnecessary spaces
         cleaned_entry = re.sub(r'\s+', ' ', entry).strip()  # Replace all excessive whitespaces with a single space
         
-        title = re.search(r"^([^U]+)", cleaned_entry)  # Match the title before the URL
+        title = cleaned_entry.split("URL:")[0].strip()   # Match the title before the URL
         url = re.search(r"URL:\s*(https?://[^\s]+)", cleaned_entry)  # Extract the URL
-        category = re.search(r"Category:\s*([^\n]+)", cleaned_entry)  # Extract the Category
+        #category = re.search(r"Category:\s*([^\n]+)", cleaned_entry)  # Extract the Category
+        
+        category = re.search(r"Category:\s*([^S]+)(?=\s*Summary:)", cleaned_entry)  # Everything after "Category:" and before "Summary:"
+
         summary = re.search(r"Summary:\s*([^\n]+)", cleaned_entry)  # Extract the Summary
         justification = re.search(r"Justification:\s*([^\n]+)", cleaned_entry)  # Extract the Justification
 
