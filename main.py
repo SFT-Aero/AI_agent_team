@@ -1,13 +1,12 @@
 from crewai import Crew, Process
 from scrapper.webscrapper import scrap, read_urls_from_csv, write_scraped_data_to_csv
-
-from futuristic_agent import futuristic_task, futuristic_agent, disruptive_economy_task
+from futuristic_agent import futuristic_task, futuristic_agent, disruptive_economy_task, parse_agent_output, save_to_csv
 
 #Step 1: Set up GUI
 input_csv = '/Users/shan/AI_agent_team/urls.csv'  # Path to your input CSV with URLs
 output_csv = '/Users/shan/AI_agent_team/scraped_articles.csv'  # Path for the output CSV
-signals_csv = '/Users/shan/AI_agent_team/all_signals.csv'
-econ_csv = '/Users/shan/AI_agent_team/econ_signals.csv'
+signals_csv = '/Users/shan/AI_agent_team/general_signals.csv'
+econ_csv = '/Users/shan/AI_agent_team/economic_signals.csv'
 
 # Step 1: Read URLs from the input CSV
 urls = read_urls_from_csv(input_csv)
@@ -22,15 +21,23 @@ print(f"Scraped data has been saved to {output_csv}")
 
 # Step 3: Pass article data to futuristic agent
 futuristic_task = futuristic_task(raw_data)
-disruptive_economy_task = disruptive_economy_task(raw_data)
+
+#disruptive_economy_task = disruptive_economy_task(raw_data)
 
 # Step 4: Runs the agent crew
 crew = Crew(
     agents=[futuristic_agent],
-    tasks=[disruptive_economy_task],
-    #process=Process.sequential
-    #futuristic_task, 
+    tasks=[futuristic_task],
+    process=Process.sequential
 )
+#disruptive_economy_task
 
 output = crew.kickoff()
-print(output)
+
+csv = parse_agent_output(output.raw)
+save_to_csv(csv, signals_csv)
+
+#print(output)
+
+#write_agent_signals_to_csv(signals_csv, output['futuristic_task'])
+#write_agent_signals_to_csv(econ_csv, output[1])
