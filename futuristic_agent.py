@@ -58,13 +58,26 @@ def parse_agent_output(agent_output):
     parsed_articles = []
 
     for entry in entries:
-        lines = entry.strip().split('\n')
-        title = lines[0].strip()
-        url = next((line.split("URL:")[1].strip() for line in lines if line.startswith("URL:")), "")
-        category = next((line.split("Category:")[1].strip() for line in lines if line.startswith("Category:")), "")
-        summary = next((line.split("Summary:")[1].strip() for line in lines if line.startswith("Summary:")), "")
-        justification = next((line.split("Justification:")[1].strip() for line in lines if line.startswith("Justification:")), "")
+        # Clean the entry by removing all unnecessary spaces
+        cleaned_entry = re.sub(r'\s+', ' ', entry).strip()  # Replace all excessive whitespaces with a single space
+        
+        # Split the cleaned entry into lines by detecting "URL:", "Category:", etc.
+        title = cleaned_entry.split("URL:")[0].strip()  # Title is before "URL:"
+        remaining_text = cleaned_entry.split("URL:")[1].strip()  # Everything after "URL:"
+        
+        # Use regex to extract URL, Category, Summary, and Justification
+        url = re.search(r"URL:\s*(https?://[^\s]+)", remaining_text)
+        category = re.search(r"Category:\s*([^\n]+)", remaining_text)
+        summary = re.search(r"Summary:\s*([^\n]+)", remaining_text)
+        justification = re.search(r"Justification:\s*([^\n]+)", remaining_text)
 
+        # If not found, set default values
+        url = url.group(1) if url else "URL Missing"
+        category = category.group(1) if category else "Category Missing"
+        summary = summary.group(1) if summary else "Summary Missing"
+        justification = justification.group(1) if justification else "Justification Missing"
+
+        # Append the parsed data to the list
         parsed_articles.append({
             "Title": title,
             "URL": url,
