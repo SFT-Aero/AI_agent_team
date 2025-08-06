@@ -28,7 +28,10 @@ Two agents analyze the articles:
 ### ✅ Step 3: Save Outputs
 Each agent's results are saved to a separate file:
 - `general_signals.csv` — results from the Futuristic Agent.
+![Alt Text](general.png)
+
 - `economic_signals.csv` — results from the Disruptive Economy Agent.
+![Alt Text](economic.png)
 
 ---
 
