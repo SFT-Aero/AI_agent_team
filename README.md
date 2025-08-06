@@ -1,3 +1,11 @@
+# Set Up Instructions
+Navigate to your terminal. 
+Type the command  `cd AI_agent_team`
+Type the command X for requirements.txt
+Type the command `python3 main.py`
+Let it run for 2-5 minutes until complete.
+Type the command X to downlowd the .csv file
+
 # AI Agent Web Scraping and Analysis
 
 ## 📌 Overview
