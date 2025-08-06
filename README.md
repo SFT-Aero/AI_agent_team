@@ -49,5 +49,5 @@ AI_agent_team/
 ## Contact & Support
 For any questions or issues with the script, please contact Shandler A. Mason, shandler.mason@gmail.com, CSPS Summer 2025 MTS Graduate Intern III.
 
-**Created by:** Shandler A. Mason
+**Created by:** [Shandler A. Mason](https://shandlermason.github.io/sm-portfolio/)
 
