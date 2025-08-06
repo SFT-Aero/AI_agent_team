@@ -27,18 +27,6 @@ def write_scraped_data_to_csv(output_csv, scraped_data):
 # Add additional websites - the guaridan, washington post, new york times, space news digest
 # Websites systematically determined from most frequently used Emerging Disruptor - Societal websites
 def scrap(urls):
-    #urls = [
-        #'https://npr.org/',
-        #'https://bbc.com/',
-        #'https://www.cnn.com/world/asia', # Does not work well due to pay wall
-        #'https://weforum.org/' # Does not work, unsure why
-        #'https://news.ycombinator.com/'
-        #'https://restofworld.org/'
-        #'https://www.wired.com/magazine/'
-        #'https://futurology.today/'
-        #'https://techcrunch.com/'
-
-    #]
 
     headers = {'User-Agent': 'Mozilla/5.0'}
     all_articles = []
@@ -106,11 +94,6 @@ def extract_article_info(elem, base_url):
     # Title
     title_tag = elem.find(class_='title') or elem.find(class_='headline') or elem.find('h1', class_='headline__text')
     title = title_tag.get_text(strip=True) if title_tag else 'No title found'
-
-    # Author
-    #author_tag = soup.find('meta', {'name': 'author'}) or soup.find('meta', {'name': 'cXenseParse:author'})
-    #print("DEBUG author_tag:", author_tag)  # Debug line
-    #author = author_tag['content'].strip() if author_tag and author_tag.has_attr('content') else 'No author found'
 
     # URL
     link_tag = elem.find('a', href=True)

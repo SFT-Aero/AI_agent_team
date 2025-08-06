@@ -1,4 +1,4 @@
-from crewai import Crew, Process
+from crewai import Crew
 from scrapper.webscrapper import scrap, read_urls_from_csv, write_scraped_data_to_csv
 from futuristic_agent import futuristic_task, futuristic_agent, disruptive_economy_task, parse_agent_output, save_to_csv
 from pathlib import Path

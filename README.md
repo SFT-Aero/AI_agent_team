@@ -1,55 +1,50 @@
-# AI_agent_team
-1. Navigate to the correct directory
-2. Run 'pip install -r requirements.txt' to install all the project dependencies
-3. Verify that the packages were installed 'pip list'
+# AI Agent Web Scraping and Analysis
 
-# Quick Overview: How Our Web Scraper Gathers News Articles
+## 📌 Overview
 
-## What does this tool do?
+This script automates the process of:
 
-- It **visits a list of websites** (news sources) and collects articles automatically.
-- From each article, it extracts important details like:
-  - Title
-  - Link (URL)
-  - Date (when published)
-  - Category or topic
-  - A short teaser or summary
-  - The full article body text
-  - Images related to the article
+1. Scraping articles from a list of URLs.
+2. Analyzing those articles with two AI agents.
+3. Saving the results into clearly structured CSV files.
 
-## How it works — simply:
+It helps identify future signals and economically disruptive trends from real-world news and articles.
 
-1. We provide the scraper with a list of website URLs from a CSV file.
-2. The scraper **goes to each website** and finds article sections.
-3. It **pulls out the key info** from each article using common patterns on news sites.
-4. All gathered articles are saved into a CSV file for easy review and later use.
+---
 
-## Why is this useful?
+## 🧩 What It Does
 
-- It saves **hours of manual research** by collecting news automatically.
-- Gives us **fresh, relevant data** to feed our AI agents for analysis.
-- Helps keep track of trends by monitoring multiple sources regularly.
-- Makes sure we get detailed info (like dates and images) for better insights.
+### ✅ Step 1: Scrape Articles
+- **Input**: `urls.csv` — a file with a list of news article URLs.
+- **Output**: `scraped_articles.csv` — raw article data (title, content, etc.).
 
-# Quick Overview: How Our AI Finds Future Signals in News Articles
+![Alt Text](webscraper.jpg)
 
-## What does this code do?
+### ✅ Step 2: Analyze with AI Agents
+Two agents analyze the articles:
+- **Futuristic Agent**: Detects trends and weak signals that may influence the future.
+- **Disruptive Economy Agent**: Identifies signals of economic disruption or transformation.
 
-- **Reads news articles** from a list (with titles and short summaries).
-- **Asks an AI “expert”** to find the top 5 articles that show early signs of important future changes in society, technology, or the economy.
-- The AI **explains why each article is important** (called a “justification”).
-- The results are **saved into a spreadsheet** (CSV file) with the article titles and the AI’s explanations.
+### ✅ Step 3: Save Outputs
+Each agent's results are saved to a separate file:
+- `general_signals.csv` — results from the Futuristic Agent.
+- `economic_signals.csv` — results from the Disruptive Economy Agent.
 
-## How it works — simply:
+---
 
-1. We prepare a list of news articles.
-2. We create a task for the AI to analyze those articles and pick the most important ones.
-3. The AI returns a clear, numbered list of articles with reasons why they matter.
-4. We take that list and save it neatly in a CSV file for easy reading and sharing.
+## 📂 Files & Structure
 
-## Why is this useful?
+```plaintext
+AI_agent_team/
+├── urls.csv                  # Input: list of URLs to scrape
+├── scraped_articles.csv      # Output: raw scraped articles
+├── general_signals.csv       # Output: futuristic signals
+├── economic_signals.csv      # Output: economic signals
+└── main.py                 # The main script you run
+```
 
-- It helps us **spot early trends and risks** before they become obvious.
-- Makes **complex news easier to understand** by summarizing key future signals.
-- Helps guide **strategic planning and decision making** with AI-powered insights.
+## Contact & Support
+For any questions or issues with the script, please contact Shandler A. Mason, shandler.mason@gmail.com, CSPS Summer 2025 MTS Graduate Intern III.
+
+**Created by:** Shandler A. Mason
 

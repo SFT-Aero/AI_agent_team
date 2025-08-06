@@ -45,12 +45,6 @@ def disruptive_economy_task(articles):
     )
     return economic_signal_task
 
-# Tell AI "look at npr and give me the top 10 stories related to AI from date range" show me title, date, first two lines
-# Break down how it reduces, deduces, make articles meaningful to use
-# How much data, how often do we scrap, do we fact check the data
-# Make more of a thought process then just scrapping
-# Scrape every 2 days, scrape once a day, Remove articles that are a few months old, want to stay current
-
 def parse_agent_output(agent_output):
     # Split by numbered entries (e.g., 1. Title...)
     entries = re.split(r'\n?\d+\.\s*Title:\s*', agent_output)[1:]  # Skip the first empty match
@@ -69,16 +63,6 @@ def parse_agent_output(agent_output):
 
         summary = re.search(r"Summary:\s*([^\n]+)", cleaned_entry)  # Extract the Summary
         justification = re.search(r"Justification:\s*([^\n]+)", cleaned_entry)  # Extract the Justification
-
-        # Split the cleaned entry into lines by detecting "URL:", "Category:", etc.
-        #title = cleaned_entry.split("URL:")[0].strip()  # Title is before "URL:"
-        #remaining_text = cleaned_entry.split("URL:")[1].strip()  # Everything after "URL:"
-        
-        # Use regex to extract URL, Category, Summary, and Justification
-        #url = re.search(r"URL:\s*(https?://[^\s]+)", remaining_text)
-        #category = re.search(r"Category:\s*([^\n]+)", remaining_text)
-        #summary = re.search(r"Summary:\s*([^\n]+)", remaining_text)
-        #justification = re.search(r"Justification:\s*([^\n]+)", remaining_text)
 
         # If not found, set default values
         url = url.group(1) if url else "URL Missing"
