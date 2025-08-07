@@ -1,10 +1,29 @@
-# Set Up Instructions
-Navigate to your terminal. 
-Type the command  `cd AI_agent_team`
-Type the command X for requirements.txt
-Type the command `python3 main.py`
-Let it run for 2-5 minutes until complete.
-Type the command X to downlowd the .csv file
+# Instructions To Run
+Navigate to your terminal.
+
+Type in the following commands:
+
+`cd AI_agent_team`
+
+` git pull origin main`
+
+`python3 -m venv myenv`
+
+`source myenv/bin/activate`
+
+`pip install -r requirements.txt && python3 main.py`
+
+Let run for 2-5 minutes until complete.
+
+Type in the following command to retrieve the .csv file:
+
+`mv scraped_articles.csv`
+
+`mv general_signals.csv ~/Downloads/`
+
+`mv economic_signals.csv ~/Downloads/`
+
+Open your Downloads folder to retrieve the desired files.
 
 # AI Agent Web Scraping and Analysis
 
