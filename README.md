@@ -5,7 +5,7 @@ Type in the following commands:
 
 `cd AI_agent_team`
 
-` git pull origin main`
+`git pull origin main`
 
 `python3 -m venv myenv`
 
