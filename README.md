@@ -5,17 +5,20 @@ Type in the following commands:
 
 `git clone https://github.com/SFT-Aero/AI_agent_team.git`
 
+## To run on your local machine
 `cd AI_agent_team`
 
 `git pull origin main`
-
-## To run on your local machine
 
 Make sure you are running Python 3.13.5. If not, download Python 3.13.5. `python3 --version`
 
 Make sure `pip` is installed, if needed. `python -m pip --version`
 
 ## To run on a virtual environment
+`cd AI_agent_team`
+
+`git pull origin main`
+
 `python3 -m venv myenv`
 
 `source myenv/bin/activate`
