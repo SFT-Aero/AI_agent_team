@@ -10,6 +10,8 @@ Type in the following commands:
 
 `git pull origin main`
 
+`pip install -r requirements.txt && python3 main.py`
+
 Make sure you are running Python 3.13.5. If not, download Python 3.13.5. `python3 --version`
 
 Make sure `pip` is installed, if needed. `python -m pip --version`
@@ -23,9 +25,9 @@ Make sure `pip` is installed, if needed. `python -m pip --version`
 
 `source myenv/bin/activate`
 
-# Run Instructions 
 `pip install -r requirements.txt && python3 main.py`
 
+# Run Instructions 
 Let run for 2-5 minutes until complete.
 
 Type in the following command to retrieve the .csv file:
