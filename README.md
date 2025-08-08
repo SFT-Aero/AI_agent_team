@@ -25,6 +25,22 @@ Type in the following command to retrieve the .csv file:
 
 Open your Downloads folder to retrieve the desired files.
 
+
+or try this dont run in virtual environtment, version has to be Python 3.13.5 in either on computer or virtual environment
+
+check python verson command 
+
+check if pip is installed 
+python -m pip --version
+
+`python3 -m venv myenv`
+
+`source myenv/bin/activate`
+
+`pip install -r requirements.txt && python3 main.py`
+
+
+
 # AI Agent Web Scraping and Analysis
 
 ## 📌 Overview
